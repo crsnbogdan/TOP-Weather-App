@@ -2,32 +2,33 @@
      let rawTodayWeatherData = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${queryLocation}&appid=29112d9d44d0009fdd0e9aa6b008cdee`, { type: 'cors' });
      let rawTodayDataObj = await rawTodayWeatherData.json();
      let processedTodayDataObj = {
+         currentMaxTemp: rawTodayDataObj.main.temp_max,
+         currentMinTemp: rawTodayDataObj.main.temp_min,
+         currentTemp: rawTodayDataObj.main.temp,
+         feelsLikeTemp: rawTodayDataObj.main.feels_like,
          locationName: rawTodayDataObj.name,
          currentWeatherDescription: rawTodayDataObj.weather[0].description,
-         maxTemp: rawTodayDataObj.main.temp_max,
-         temp: rawTodayDataObj.main.temp,
-         minTemp: rawTodayDataObj.main.temp_min,
-         feelsLikeTemp: rawTodayDataObj.main.feels_like,
      }
 
-     let processedSevenDayForecastObj = await getForecastWeatherData(Number(rawTodayDataObj.coord.lat), Number(rawTodayDataObj.coord.lon))
-     return { processedTodayDataObj, processedSevenDayForecastObj };
+     let processedSixDayForecastObj = await getForecastWeatherData(Number(rawTodayDataObj.coord.lat), Number(rawTodayDataObj.coord.lon))
+     return { processedTodayDataObj, processedSixDayForecastObj };
  }
  async function getForecastWeatherData(currentCityLat, currentCityLon) {
      let rawForecastWeatherData = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${currentCityLat}&lon=${currentCityLon}&exclude=hourly,minutely&appid=29112d9d44d0009fdd0e9aa6b008cdee`, { type: 'cors' });
      let rawForecastDataObj = await rawForecastWeatherData.json();
      rawForecastDataObj.daily.shift();
-     let rawSevenDayForecastArr = rawForecastDataObj.daily;
-     let processedSevenDayForecastArr = [];
-     rawSevenDayForecastArr.forEach(day => {
-         let currentDay = {
-             mintem: day.temp.min,
-             maxtemp: day.temp.max,
-             weather: day.weather[0].description,
+     rawForecastDataObj.daily.shift();
+     let rawSixDayForecastArr = rawForecastDataObj.daily;
+     let processedSixDayForecastArr = [];
+     rawSixDayForecastArr.forEach(day => {
+         let forecastDay = {
+             dayMinTemp: day.temp.min,
+             dayMaxTemp: day.temp.max,
+             dayWeatherDescription: day.weather[0].description,
          }
-         processedSevenDayForecastArr.push(currentDay);
+         processedSixDayForecastArr.push(forecastDay);
      });
-     return { processedSevenDayForecastArr };
+     return { processedSixDayForecastArr };
  }
 
  export { getWeatherData };
