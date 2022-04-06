@@ -8,13 +8,13 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Weather App',
+            title: 'My Weather App',
             template: 'src/index.html',
             children: true,
         }),
     ],
     output: {
-        filename: '[name].bundle.js',
+        filename: 'main.js',
         path: path.resolve(__dirname, 'dist'),
         clean: true,
     },
