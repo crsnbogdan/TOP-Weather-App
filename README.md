@@ -1,15 +1,11 @@
 TITLE: My Weather App
 
-VERSION NUMBER: 1.0.3
+VERSION NUMBER: 1.0.4
 
 DESCRIPTION: Project created for the purpose of learning how to write asynchronous code and how to interact with third party APIs in order to fetch data from a server and display it in the DOM.
 
-PROJECT STATUS: IN PROGRESS
+PROJECT STATUS: COMPLETE
 
-TO DO:
-
-- add functionality to show the temperature in either fahrenheit or celsius
-- add styling to page
 
 TECHNOLOGIES USED: HTML, CSS, JS, Webpack, NPM
 
