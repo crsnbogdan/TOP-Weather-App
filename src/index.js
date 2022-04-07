@@ -54,4 +54,4 @@ import { renderWeatherData } from "./renderWeatherData.js";
             }
         }
     }
-}.catch(err => console.log(err)))()
+})()
